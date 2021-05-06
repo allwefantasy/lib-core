@@ -10,6 +10,8 @@ pip install aiohttp psutil setproctitle grpcio pandas xlsxwriter==1.2.0 xlrd==1.
 pip install watchdog requests click uuid pyjava vega_datasets plotly 
 ```
 
+Conda recommended.
+
 ## dataset.vega_datasets
 
 Make sure python lib vega_datasets installed.  
