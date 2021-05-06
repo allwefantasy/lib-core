@@ -58,4 +58,4 @@ print("XML TEST")
 context.build_result([{"content":html}])
 ''' named temp_table;
 
-select content as html,"" as dash from temp_table as ${outputTable};
+select content as html,"" as dash from temp_table as `${outputTable}`;
