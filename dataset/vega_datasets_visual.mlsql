@@ -1,0 +1,61 @@
+set  inputTable="vega_datasets" where type="defaultParam";
+set  outputTable="vega_datasets_visual" where type="defaultParam";
+set  pythonEnv = ":" where type="defaultParam";
+
+
+!python conf "schema=st(field(content,string))";
+!python env "PYTHON_ENV=${pythonEnv}";
+
+!ray on "${inputTable}" '''
+import pandas as pd
+import plotly.express as px
+from plotly.io import to_html
+from pyjava.api.mlsql import PythonContext,RayContext
+
+ray_context = RayContext.connect(globals(),None)
+
+# from pyjava.rayfix import RayWrapper
+# import ray
+# print(ray.__version__)
+
+data = list(ray_context.collect())
+df = pd.DataFrame(data, columns=data[0].keys())
+
+fig = px.bar(df,
+             y="Entity",
+             x="Deaths",
+             animation_frame="Year",
+             orientation='h',
+             range_x=[0, df.Deaths.max()],
+             color="Entity")
+# improve aesthetics (size, grids etc.)
+fig.update_layout(width=1000,
+                  height=800,
+                  xaxis_showgrid=False,
+                  yaxis_showgrid=False,
+                  paper_bgcolor='rgba(0,0,0,0)',
+                  plot_bgcolor='rgba(0,0,0,0)',
+                  title_text='Evolution of Natural Disasters',
+                  showlegend=False)
+fig.update_xaxes(title_text='Number of Deaths')
+fig.update_yaxes(title_text='')
+
+html = to_html(
+    fig,
+    config={},
+    auto_play=False,
+    include_plotlyjs=True,
+    include_mathjax="cdn",
+    post_script=None,
+    full_html=True,
+    animation_opts=None,
+    default_width="50%",
+    default_height="50%",
+    validate=False,
+)
+
+print("XML TEST")
+context.build_result([{"content":html}])
+''' named temp_table;
+
+select content as html,"" as dash from temp_table as ${outputTable};
