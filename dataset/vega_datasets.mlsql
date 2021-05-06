@@ -19,5 +19,5 @@ context.set_output([[df[name] for name in df]])
 ''' named ${outputTable};
 
 set dumpData = '''
-save overwrite ${outputTable} as parquet.`{0}`;
+save overwrite ${outputTable} as parquet.`{0}`
 ''';
