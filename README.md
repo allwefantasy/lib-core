@@ -1,6 +1,6 @@
 # lib-core
 
-## Demo Data From Python
+## dataset
 
 ### vega_datasets
 
@@ -9,6 +9,7 @@ Then you can save the vega_datasets to any path with
 following code:
 
 ```sql
+-- if you are in china, please replace github.com with gitee.com.
 include lib.`github.com/allwefantasy/lib-core` where 
 alias="libCore";
 
@@ -24,5 +25,13 @@ include local.`libCore.dataset.vega_datasets`;
 load parquet.`/tmp/veca_datasets` as output;
 ```
 
-### 
+### vega_datasets_visual
 
+Visualize vega_datasets.
+
+```sql
+load parquet.`/tmp/veca_datasets` as data;
+
+set inputTable="data";
+include local.`libCore.dataset.vega_datasets_visual`;
+```
