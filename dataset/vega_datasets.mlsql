@@ -2,7 +2,7 @@
 set  pythonEnv = ":" where type="defaultParam";
 set  outputTable="vega_datasets" where type="defaultParam";
 
-!python env "PYTHON_ENV=${}";
+!python env "PYTHON_ENV=${pythonEnv}";
 !python conf "schema=st(field(Entity,string),field(Year,long),field(Deaths,long))";
 !python conf "dataMode=model";
 
@@ -17,3 +17,7 @@ df = data.disasters()
 context.set_output([[df[name] for name in df]])
 
 ''' named ${outputTable};
+
+set dumpData = '''
+save overwrite ${outputTable} as parquet.`{0}`;
+''';
