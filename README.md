@@ -10,9 +10,7 @@ pip install aiohttp psutil setproctitle grpcio pandas xlsxwriter==1.2.0 xlrd==1.
 pip install watchdog requests click uuid pyjava vega_datasets plotly 
 ```
 
-## dataset
-
-### vega_datasets
+## dataset.vega_datasets
 
 Make sure python lib vega_datasets installed.  
 Then you can save the vega_datasets to any path with
@@ -35,7 +33,7 @@ include local.`libCore.dataset.vega_datasets`;
 load parquet.`/tmp/veca_datasets` as output;
 ```
 
-### vega_datasets_visual
+### dataset.vega_datasets_visual
 
 Visualize vega_datasets.
 
