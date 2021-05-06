@@ -16,7 +16,7 @@ df = data.disasters()
 
 context.set_output([[df[name] for name in df]])
 
-''' named ${outputTable};
+''' named "${outputTable}";
 
 set dumpData = '''
 save overwrite ${outputTable} as parquet.`{0}`
