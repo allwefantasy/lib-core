@@ -1,0 +1,19 @@
+
+set  pythonEnv = ":" where type="defaultParam";
+set  outputTable="vega_datasets" where type="defaultParam";
+
+!python env "PYTHON_ENV=${}";
+!python conf "schema=st(field(Entity,string),field(Year,long),field(Deaths,long))";
+!python conf "dataMode=model";
+
+!ray on command '''
+
+import plotly.express as px
+from plotly.io import to_html
+from vega_datasets import data
+
+df = data.disasters()
+
+context.set_output([[df[name] for name in df]])
+
+''' named ${outputTable};
