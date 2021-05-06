@@ -1,6 +1,7 @@
 
-set  pythonEnv = ":" where type="defaultParam";
+
 set  outputTable="vega_datasets" where type="defaultParam";
+set  pythonEnv = ":" where type="defaultParam";
 
 !python env "PYTHON_ENV=${pythonEnv}";
 !python conf "schema=st(field(Entity,string),field(Year,long),field(Deaths,long))";

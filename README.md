@@ -1,5 +1,15 @@
 # lib-core
 
+Python env requires:
+
+```
+pip install Cython
+pip install pyarrow==0.10.0
+pip install ray==0.8.0
+pip install aiohttp psutil setproctitle grpcio pandas xlsxwriter==1.2.0 xlrd==1.2.0
+pip install watchdog requests click uuid pyjava vega_datasets plotly 
+```
+
 ## dataset
 
 ### vega_datasets
