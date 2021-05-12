@@ -2,12 +2,14 @@
 
 For Ray 0.8.0：
 
+```
 pip install Cython
 pip install pyarrow==0.10.0
 pip install ray==0.8.0
 pip install aiohttp psutil setproctitle grpcio pandas xlsxwriter==1.2.0 xlrd==1.2.0
 pip install watchdog requests click uuid sfcli
 pip install pyjava==0.2.8.3
+```
 
 For Ray 1.3.0：
 
