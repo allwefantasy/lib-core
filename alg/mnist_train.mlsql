@@ -1,0 +1,19 @@
+set  inputTable="mnist" where type="defaultParam";
+set  pythonEnv = ":" where type="defaultParam";
+set  outputTable="mnist_out" where type="defaultParam";
+
+
+select "rayAddress" as k, "127.0.0.1:10001" as v as pconf;
+
+!pyInclude local "github.com/allwefantasy/lib-core.alg.mnist_train.py" named minist_train_py;
+
+-- !python env "PYTHON_ENV=source /Users/allwefantasy/opt/anaconda3/bin/activate ray1.3.0";
+!python conf "runIn=driver";
+!python conf "schema=st(field(model,string))";
+!python conf "dataMode=model";
+
+run command as Ray.`` where 
+inputTable="${inputTable}" and 
+outputTable="${mnist_out}" and
+confTable="pconf" and
+code='''py.minist_train_py''';
