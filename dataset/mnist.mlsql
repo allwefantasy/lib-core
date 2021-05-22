@@ -3,7 +3,7 @@ set  outputTable="mnist" where type="defaultParam";
 set  pythonEnv = ":" where type="defaultParam";
 
 !python env "PYTHON_ENV=${pythonEnv}";
-!python conf "schema=st(field(image,array(integer)),field(label,integer))";
+!python conf "schema=st(field(image,array(long)),field(label,long))";
 !python conf "dataMode=model";
 
 !pyInclude local "github.com/allwefantasy/lib-core.dataset.mnist.py" named minist_py;
