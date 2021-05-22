@@ -1,9 +1,10 @@
 set  inputTable="mnist" where type="defaultParam";
 set  pythonEnv = ":" where type="defaultParam";
 set  outputTable="${inputTable}_out" where type="defaultParam";
+set  rayAddress="127.0.0.1:10001" where type="defaultParam";
 
 
-select "rayAddress" as k, "127.0.0.1:10001" as v as pconf;
+select "rayAddress" as k, "${rayAddress}" as v as pconf;
 
 !pyInclude local "github.com/allwefantasy/lib-core.alg.mnist.py" named minist_train_py;
 
