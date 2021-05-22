@@ -5,7 +5,7 @@ set  outputTable="${inputTable}_out" where type="defaultParam";
 
 select "rayAddress" as k, "127.0.0.1:10001" as v as pconf;
 
-!pyInclude local "github.com/allwefantasy/lib-core.alg.mnist_train.py" named minist_train_py;
+!pyInclude local "github.com/allwefantasy/lib-core.alg.mnist.py" named minist_train_py;
 
 -- !python env "PYTHON_ENV=source /Users/allwefantasy/opt/anaconda3/bin/activate ray1.3.0";
 !python conf "runIn=driver";

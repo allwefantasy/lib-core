@@ -70,6 +70,11 @@ include local.`libCore.dataset.mnist`;
 
 load parquet.`/tmp/mnist` as mnist_data;
 
+set inputTable="mnist_data";
+set pythonEnv="PYTHON_ENV=source /Users/allwefantasy/opt/anaconda3/bin/activate ray1.3.0";
+-- include DL algorithm
+include local.`libCore.alg.mnist_train`;
+
 ```
 
 
