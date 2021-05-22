@@ -8,7 +8,7 @@ select "rayAddress" as k, "${rayAddress}" as v as pconf;
 
 !pyInclude local "github.com/allwefantasy/lib-core.alg.mnist.py" named minist_train_py;
 
--- !python env "PYTHON_ENV=source /Users/allwefantasy/opt/anaconda3/bin/activate ray1.3.0";
+!python env "PYTHON_ENV=${pythonEnv}";
 !python conf "runIn=driver";
 !python conf "schema=st(field(model,string))";
 !python conf "dataMode=model";
