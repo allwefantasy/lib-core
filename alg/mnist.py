@@ -52,7 +52,7 @@ def train():
     network.fit(train_images,train_labels,epochs=6,batch_size=128)
     model_path = os.path.join(home,"tmp","minist_model")
     network.save(model_path)
-    return model_path
+    return os.path.join("tmp","minist_model")
 
 if  is_mock:
     model_path = ray.get(train.remote())
