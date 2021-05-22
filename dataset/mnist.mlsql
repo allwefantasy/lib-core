@@ -6,7 +6,7 @@ set  pythonEnv = ":" where type="defaultParam";
 !python conf "schema=st(field(image,array(integer)),field(label,integer))";
 !python conf "dataMode=model";
 
-!pyInclude local "github.com/allwefantasy/lib-core.dataset.minist.py" named minist_py;
+!pyInclude local "github.com/allwefantasy/lib-core.dataset.mnist.py" named minist_py;
 
 !ray on command py.minist_py named "${outputTable}";
 
