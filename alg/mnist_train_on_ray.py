@@ -23,8 +23,7 @@ def data():
 def train():
     train_images,train_labels = data()
     network = models.Sequential()
-    network.ad
-    d(layers.Dense(512,activation="relu",input_shape=(28*28,)))
+    network.add(layers.Dense(512,activation="relu",input_shape=(28*28,)))
     network.add(layers.Dense(10,activation="softmax"))
     network.compile(optimizer="rmsprop",loss="categorical_crossentropy",metrics=["accuracy"])
     network.fit(train_images,train_labels,epochs=6,batch_size=128)
