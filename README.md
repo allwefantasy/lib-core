@@ -69,6 +69,11 @@ alias="libCore";
 -- dump minist data to object storage
 include local.`libCore.dataset.mnist`;
 !dumpData /tmp/mnist;
+```
+
+### alg.mnist*
+
+```sql
 
 -- load the data we dumped before and named mnist_data
 load parquet.`/tmp/mnist` as mnist_data;
@@ -89,8 +94,7 @@ include local.`libCore.alg.mnist_train_on_ray`;
 save overwrite mnist_data_out as delta.`ai_model.mnist_on_ray_model`;
 
 -- show the model we saved in data lake.
-load delta.`ai_model.mnist_on_ray_model` as mnist_on_ray_model; 
-
+load delta.`ai_model.mnist_on_ray_model` as mnist_on_ray_model;
 ```
 
 
