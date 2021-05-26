@@ -16,7 +16,7 @@ def data():
     train_images = np.array([np.array(item["image"]) for item in temp_data])
     train_labels = np_utils.to_categorical(np.array([item["label"] for item in temp_data])    )
     train_images = train_images.reshape((len(temp_data),28*28))
-    (train_images,train_labels)
+    return train_images,train_labels
 
 @ray.remote
 @rayfix.last
