@@ -2,7 +2,7 @@ set  inputTable="mnist" where type="defaultParam";
 set  pythonEnv = ":" where type="defaultParam";
 set  outputTable="${inputTable}_out" where type="defaultParam";
 
-!pyInclude local "github.com/allwefantasy/lib-core.alg.mnist_train.py" named minist_train_py;
+!pyInclude local "github.com/allwefantasy/lib-core.alg.mnist_train_on_ray.py" named minist_train_py;
 
 !python env "PYTHON_ENV=${pythonEnv}";
 !python conf "runIn=driver";
