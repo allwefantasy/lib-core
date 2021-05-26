@@ -60,21 +60,36 @@ include local.`libCore.dataset.vega_datasets_visual`;
 ### dataset.mnist
 
 ```sql
+
 include lib.`github.com/allwefantasy/lib-core` where 
 force="true" and
-libMirror="gitee.com" and -- proxy
+libMirror="gitee.com" and -- proxy configuration.
 alias="libCore";
 
+-- dump minist data to object storage
 include local.`libCore.dataset.mnist`;
 !dumpData /tmp/mnist;
 
+-- load the data we dumped before and named mnist_data
 load parquet.`/tmp/mnist` as mnist_data;
 
+-- configure python env and setup the input table name.
 set inputTable="mnist_data";
 set pythonEnv="source /Users/allwefantasy/opt/anaconda3/bin/activate ray1.3.0";
-set rayAddress="127.0.0.1:10001";
--- include DL algorithm
+
+-- train the mnist data without Ray cluster.
 include local.`libCore.alg.mnist_train`;
+-- save the model in data lake.
+save overwrite mnist_data_out as delta.`ai_model.mnist_model`;
+
+-- train with Ray Cluster.
+select "RAY_ADDRESS" as k, "127.0.0.1:10001" as v as rayConfig;
+include local.`libCore.alg.mnist_train_on_ray`;
+-- save the model in data lake.
+save overwrite mnist_data_out as delta.`ai_model.mnist_on_ray_model`;
+
+-- show the model we saved in data lake.
+load delta.`ai_model.mnist_on_ray_model` as mnist_on_ray_model; 
 
 ```
 
