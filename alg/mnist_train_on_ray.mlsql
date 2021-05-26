@@ -12,4 +12,5 @@ set  outputTable="${inputTable}_out" where type="defaultParam";
 run command as Ray.`` where 
 inputTable="${inputTable}" and 
 outputTable="${outputTable}" and
+confTable="rayConfig" and
 code='''py.minist_train_py''';

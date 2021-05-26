@@ -8,7 +8,7 @@ from pyjava import rayfix
 import numpy as np
 
 
-ray_context = RayContext.connect(globals(),None)
+ray_context = RayContext.connect(globals(),context.conf["RAY_ADDRESS"])
 data_servers = ray_context.data_servers()
 
 def data():
