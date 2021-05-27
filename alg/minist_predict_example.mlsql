@@ -1,0 +1,47 @@
+load delta.`ai_model.minist_model` as model;
+load parquet.`/tmp/mnist` as mnist_data;
+
+!python env "PYTHON_ENV=source /Users/allwefantasy/opt/anaconda3/bin/activate ray1.3.0";
+!python conf "schema=st(field(actualCol,long),field(predictCol,long))";
+
+run command as Ray.`` where 
+inputTable="mnist_data" and
+outputTable="predicted_table" and
+model="model" and
+code='''
+import ray
+import numpy as np
+from tensorflow.keras import models,layers
+from tensorflow.keras import utils as np_utils
+from pyjava.api.mlsql import PythonContext,RayContext
+import mock
+import os
+import numpy as np
+from pyjava import rayfix
+
+ray_context = RayContext.connect(globals(),None)
+conf = ray_context.conf()
+home = conf["HOME"]
+
+## rebuild model from data lake
+model_path = os.path.join(home,"tmp","minist_model7")   
+model_servers = RayContext.parse_servers(conf["modelServers"])
+ray_context.fetch_as_dir(model_path,model_servers)
+model = models.load_model(model_path)
+
+## get data  and use model to predict
+## notice that ray_context.collect() generator if your dataset is big,
+## try get the data by chunk.For simplicity, in this exmaple, we get all data 
+## from mnist_data
+temp_data = [item for item in ray_context.collect()]
+train_images = np.array([np.array(item["image"]) for item in temp_data])
+train_labels = np_utils.to_categorical(np.array([item["label"] for item in temp_data]))
+train_images = train_images.reshape((len(temp_data),28*28))
+predictions = model.predict(train_images)
+result = [{"actualCol":np.argmax(a),"predictCol":np.argmax(b)} for (a,b) in zip(predictions,train_labels)]
+print(result[1])
+context.build_result(result)
+''';
+
+run predicted_table as ConfusionMatrix.`/tmp/model_acc` where actualCol="actualCol" and  predictCol="predictCol";
+load parquet.`/tmp/model_acc/detail` as output; 
