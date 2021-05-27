@@ -97,5 +97,9 @@ save overwrite mnist_data_out as delta.`ai_model.mnist_on_ray_model`;
 load delta.`ai_model.mnist_on_ray_model` as mnist_on_ray_model;
 ```
 
+## mnist Predict Example 
+
+[minist_predict_example.mlsql](https://github.com/allwefantasy/lib-core/blob/main/alg/minist_predict_example.mlsql)
+
 
 
