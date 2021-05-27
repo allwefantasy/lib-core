@@ -20,7 +20,7 @@ pip install Cython
 pip install ray==1.3.0
 pip install aiohttp psutil setproctitle grpcio pandas xlsxwriter==1.2.0 xlrd==1.2.0
 pip install watchdog requests click uuid sfcli
-pip install pyjava==0.2.8.5
+pip install pyjava>=0.2.8.8
 ```
 
 Conda recommended.
