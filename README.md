@@ -1,5 +1,7 @@
 # lib-core
 
+> note: only works on [MLSQL Latest 2.1.0-SNAPSHOT](http://download.mlsql.tech/2.1.0-SNAPSHOT/) version
+
 For Ray 0.8.0：
 
 ```
@@ -72,6 +74,7 @@ include local.`libCore.dataset.mnist`;
 ```
 
 ### alg.mnist*
+
 
 ```sql
 
