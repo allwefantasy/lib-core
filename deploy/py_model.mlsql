@@ -3,7 +3,7 @@ set  model="" where type="defaultParam";
 set  localPath="" where type="defaultParam";
 set  pythonEnv = ":" where type="defaultParam";
 
-load delta.`${inputTable}` as model;
+load delta.`${model}` as model;
 
 !python env "PYTHON_ENV=${pythonEnv}";
 !python conf "schema=st(field(content,string))";
