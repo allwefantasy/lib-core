@@ -8,7 +8,7 @@ load delta.`${inputTable}` as model;
 !python env "PYTHON_ENV=${pythonEnv}";
 !python conf "schema=st(field(content,string))";
 
-run command Ray.`` where model="model" and
+run command as Ray.`` where model="model" and
 code='''
 import ray
 from pyjava.api.mlsql import PythonContext,RayContext
