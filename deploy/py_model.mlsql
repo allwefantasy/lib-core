@@ -10,6 +10,7 @@ load delta.`${model}` as model;
 
 run command as Ray.`` where model="model" and
 inputTable="command" and
+outputTable="command_out" and 
 code='''
 import ray
 from pyjava.api.mlsql import PythonContext,RayContext
