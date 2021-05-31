@@ -9,7 +9,7 @@ Ray 1.3.0：
 pip install Cython
 pip install ray==1.3.0
 pip install aiohttp psutil setproctitle grpcio pandas
-pip install watchdog requests click uuid plotly
+pip install watchdog requests click uuid plotly vega_datasets
 pip install pyjava>=0.2.8.8
 ```
 

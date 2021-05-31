@@ -1,29 +1,16 @@
-import ray
-import numpy as np
-from tensorflow.keras import models,layers
-from tensorflow.keras import utils as np_utils
-from pyjava.api.mlsql import PythonContext,RayContext
-import mock
-import os
-import numpy as np
-from pyjava import rayfix
+import io,cv2,numpy as np
+from pyjava.api.mlsql import RayContext
 
-ray_context = RayContext.connect(globals(),None)
-conf = ray_context.conf()
-home = conf["HOME"]
+ray_context = RayContext.connect(globals(),"127.0.0.1:10001")
 
-## rebuild model from data lake
-model_path = os.path.join(home,"tmp","minist_model7")   
-model_servers = RayContext.parse_servers(conf["modelServers"])
-ray_context.fetch_as_dir(model_path,model_servers)
-model = models.load_model(model_path)
+def resize_image(row):
+    new_row = {}
+    image_bin = row["content"]    
+    oriimg = cv2.imdecode(np.frombuffer(io.BytesIO(image_bin).getbuffer(),np.uint8),1)
+    newimage = cv2.resize(oriimg,(28,28))
+    is_success, buffer = cv2.imencode(".png", newimage)
+    io_buf = io.BytesIO(buffer)
+    new_row["content"]=io_buf.getvalue()    
+    return new_row
 
-## get data  and use model to predict
-temp_data = [item for item in RayContext.collect()]
-train_images = np.array([np.array(item["image"]) for item in temp_data])
-train_labels = np_utils.to_categorical(np.array([item["label"] for item in temp_data]))
-train_images = train_images.reshape((len(temp_data),28*28))
-predictions = model.predict(train_images)
-result = [{"actualCol":a,"predictCol":b} for (a,b) in zip(predictions,train_labels)]
-context.build_result(result)
-
+ray_context.foreach(resize_image)

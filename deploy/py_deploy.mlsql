@@ -1,0 +1,19 @@
+
+set  model="" where type="defaultParam";
+set  localPath="" where type="defaultParam";
+set  pythonEnv = ":" where type="defaultParam";
+
+load delta.`${inputTable}` as model;
+run command Ray.`` where model="model" and
+code='''
+import ray
+from pyjava.api.mlsql import PythonContext,RayContext
+import os
+ray_context = RayContext.connect(globals(),None)
+conf = ray_context.conf()
+home = conf["HOME"]
+model_path = os.path.join(home,"tmp","minist_model7")   
+model_servers = RayContext.parse_servers(conf["modelServers"])
+ray_context.fetch_as_dir("${localPath}",model_servers)
+ray_context.build_result([])
+''';
