@@ -4,6 +4,10 @@ set  localPath="" where type="defaultParam";
 set  pythonEnv = ":" where type="defaultParam";
 
 load delta.`${inputTable}` as model;
+
+!python env "PYTHON_ENV=${pythonEnv}";
+!python conf "schema=st(field(content,string))";
+
 run command Ray.`` where model="model" and
 code='''
 import ray
@@ -15,5 +19,5 @@ home = conf["HOME"]
 model_path = os.path.join(home,"tmp","minist_model7")   
 model_servers = RayContext.parse_servers(conf["modelServers"])
 ray_context.fetch_as_dir("${localPath}",model_servers)
-ray_context.build_result([])
+ray_context.build_result([{"content":"${localPath}"}])
 ''';
