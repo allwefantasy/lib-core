@@ -1,0 +1,8 @@
+register ScriptUDF.`` as hello where 
+lang="scala"
+and code='''
+    def apply()={
+        "hello world"
+    }
+'''
+and udfType="udf";
