@@ -15,6 +15,18 @@ pip install pyjava>=0.2.8.8
 
 Conda recommended.
 
+We provide an installation script, including conda and commonly used pip libraries:
+
+```bash
+sh ./dev/install-conda.sh
+```
+
+Then, we switch to this environment when we need to use conda：
+```bash
+source activate lib-core-py-367
+```
+
+
 ## dataset.vega_datasets
 
 Make sure python lib vega_datasets installed.  
