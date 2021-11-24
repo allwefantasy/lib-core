@@ -1,0 +1,20 @@
+set  inputTable="mnist" where type="defaultParam";
+set  pythonEnv = ":" where type="defaultParam";
+set  outputTable="${inputTable}_out" where type="defaultParam";
+
+!pyInclude local "gitee.com/andiehuang/lib-core.datasource.athena.save_data.py" named save_data;
+!python env "PYTHON_ENV=${pythonEnv}";
+!python conf "rayAddress=${rayAddress}";
+!python conf "access_id=${access_id}";
+!python conf "access_key=${access_key}";
+!python conf "region=${region}";
+!python conf "database=${database}";
+!python conf "s3_bucket=${s3_bucket}";
+!python conf "s3_key=${s3_key}";
+!python conf "query=${query}";
+!python conf "schema=${schema}";
+
+run command as Ray.`` where
+inputTable="${inputTable}" and
+outputTable="${outputTable}" and
+code='''py.save_data''';
